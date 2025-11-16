@@ -3,8 +3,7 @@ use bevy::prelude::*;
 mod systems;       // 包含所有游戏逻辑系统
 mod components;    // 包含所有 ECS 组件
 
-use systems::{game::game_logic, input::handle_input};
-use components::{plant::Plant, zombie::Zombie};
+use systems::{game::game_logic, input::handle_input, movement::move_zombies};
 
 const GRID_SIZE: f32 = 50.0; // 网格大小
 const GRID_WIDTH: u32 = 9;   // 网格宽度
@@ -20,9 +19,10 @@ fn main() {
             }),
             ..default()
         }))
-        .add_startup_system(setup)
-        .add_system(handle_input)
-        .add_system(game_logic)
+        .add_systems(Startup, setup)
+        .add_systems(Update, handle_input)
+        .add_systems(Update, game_logic)
+        .add_systems(Update, move_zombies)
         .run();
 }
 
