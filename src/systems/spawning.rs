@@ -44,13 +44,19 @@ pub fn spawn_zombies(
         let zombie = Zombie::new(zombie_type);
         let color = zombie.get_color();
 
+        // 计算居中网格中的僵尸生成位置
+        // 标记为未使用的变量，以避免编译器警告
+        let _screen_width = GRID_WIDTH as f32 * GRID_SIZE;
+        let zombie_x = (GRID_WIDTH as f32 + 1.0) * GRID_SIZE / 2.0 + 100.0; // 屏幕右侧
+        let zombie_y = (row as f32 - (GRID_HEIGHT as f32 - 1.0) / 2.0) * GRID_SIZE; // 居中行位置
+        
         // 在屏幕右侧生成僵尸
         commands.spawn((
             SpriteBundle {
                 transform: Transform {
                     translation: Vec3::new(
-                        GRID_WIDTH as f32 * GRID_SIZE + 100.0,
-                        row as f32 * GRID_SIZE,
+                        zombie_x,
+                        zombie_y,
                         1.0,
                     ),
                     scale: Vec3::new(40.0, 40.0, 1.0),

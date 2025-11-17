@@ -56,15 +56,19 @@ fn setup(mut commands: Commands) {
     // 添加 2D 摄像机
     commands.spawn(Camera2dBundle::default());
 
-    // 添加草坪网格背景
+    // 添加草坪网格背景（居中显示）
     for x in 0..GRID_WIDTH {
         for y in 0..GRID_HEIGHT {
+            // 计算居中位置：(x - GRID_WIDTH/2) * GRID_SIZE 确保网格居中
+            let center_x = (x as f32 - (GRID_WIDTH as f32 - 1.0) / 2.0) * GRID_SIZE;
+            let center_y = (y as f32 - (GRID_HEIGHT as f32 - 1.0) / 2.0) * GRID_SIZE;
+            
             commands.spawn((
                 SpriteBundle {
                     transform: Transform {
                         translation: Vec3::new(
-                            x as f32 * GRID_SIZE + GRID_SIZE / 2.0,
-                            y as f32 * GRID_SIZE + GRID_SIZE / 2.0,
+                            center_x,
+                            center_y,
                             0.0,
                         ),
                         scale: Vec3::new(GRID_SIZE - 2.0, GRID_SIZE - 2.0, 1.0),
