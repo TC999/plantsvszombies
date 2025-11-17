@@ -27,3 +27,4 @@ target
 
 # 游戏素材
 /assets
+*.pak
