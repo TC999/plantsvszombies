@@ -1,3 +1,8 @@
 pub mod game;
 pub mod input;
 pub mod movement;
+pub mod shooting;
+pub mod projectile;
+pub mod collision;
+pub mod sun;
+pub mod spawning;
