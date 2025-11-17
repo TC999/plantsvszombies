@@ -1,8 +1,18 @@
 [package]
 name = "plantsvszombies"
 version = "0.1.0"
-edition = "2024"
+edition = "2021"
 
 [dependencies]
-bevy = "0.11"
+bevy = { version = "0.11", default-features = false, features = [
+    "bevy_winit",
+    "bevy_render",
+    "bevy_core_pipeline",
+    "bevy_sprite",
+    "bevy_text",
+    "bevy_ui",
+    "x11",
+    "png",
+] }
+rand = "0.8"
 
