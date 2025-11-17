@@ -135,7 +135,6 @@ fn setup(mut commands: Commands) {
             ..default()
         }),
         GameOverText,
-        Visibility::Hidden,
     ));
 }
 
