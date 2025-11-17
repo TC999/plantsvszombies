@@ -111,3 +111,40 @@ impl Plant {
         }
     }
 }
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_peashooter_stats() {
+        let plant = Plant::new(PlantType::Peashooter);
+        assert_eq!(plant.health, 300);
+        assert_eq!(plant.attack_power, 20);
+        assert_eq!(plant.get_cost(), 100);
+    }
+
+    #[test]
+    fn test_sunflower_stats() {
+        let plant = Plant::new(PlantType::Sunflower);
+        assert_eq!(plant.health, 300);
+        assert_eq!(plant.attack_power, 0);
+        assert_eq!(plant.get_cost(), 50);
+    }
+
+    #[test]
+    fn test_wallnut_stats() {
+        let plant = Plant::new(PlantType::WallNut);
+        assert_eq!(plant.health, 4000);
+        assert_eq!(plant.attack_power, 0);
+        assert_eq!(plant.get_cost(), 50);
+    }
+
+    #[test]
+    fn test_plant_colors() {
+        let peashooter = Plant::new(PlantType::Peashooter);
+        let sunflower = Plant::new(PlantType::Sunflower);
+        
+        // Colors should be different for different plant types
+        assert_ne!(peashooter.get_color(), sunflower.get_color());
+    }
+}

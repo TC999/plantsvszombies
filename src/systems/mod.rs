@@ -6,3 +6,4 @@ pub mod projectile;
 pub mod collision;
 pub mod sun;
 pub mod spawning;
+pub mod game_over;

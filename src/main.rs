@@ -12,6 +12,7 @@ use systems::{
     collision::projectile_collision,
     sun::{sunflower_produce_sun, sun_lifetime, collect_sun},
     spawning::{spawn_zombies, ZombieSpawnTimer},
+    game_over::{check_game_over, display_game_over, GameState, GameOverText},
 };
 use components::sun::SunResource;
 
@@ -32,6 +33,7 @@ fn main() {
         .init_resource::<SunResource>()
         .init_resource::<SelectedPlant>()
         .init_resource::<ZombieSpawnTimer>()
+        .init_resource::<GameState>()
         .add_systems(Startup, setup)
         .add_systems(Update, handle_input)
         .add_systems(Update, game_logic)
@@ -43,6 +45,8 @@ fn main() {
         .add_systems(Update, sun_lifetime)
         .add_systems(Update, collect_sun)
         .add_systems(Update, spawn_zombies)
+        .add_systems(Update, check_game_over)
+        .add_systems(Update, display_game_over)
         .add_systems(Update, ui_system)
         .run();
 }
@@ -77,7 +81,7 @@ fn setup(mut commands: Commands) {
         }
     }
 
-    // 添加UI文本
+    // 添加UI文本 - 阳光计数器
     commands.spawn((
         TextBundle::from_section(
             "Sun: 150",
@@ -113,6 +117,26 @@ fn setup(mut commands: Commands) {
             ..default()
         }),
     );
+
+    // 添加游戏结束文本（初始隐藏）
+    commands.spawn((
+        TextBundle::from_section(
+            "游戏结束！僵尸吃掉了你的脑子！",
+            TextStyle {
+                font_size: 48.0,
+                color: Color::rgb(1.0, 0.0, 0.0),
+                ..default()
+            },
+        )
+        .with_style(Style {
+            position_type: PositionType::Absolute,
+            top: Val::Px(200.0),
+            left: Val::Px(100.0),
+            ..default()
+        }),
+        GameOverText,
+        Visibility::Hidden,
+    ));
 }
 
 #[derive(Component)]
